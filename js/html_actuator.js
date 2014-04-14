@@ -14,22 +14,24 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
 
   window.requestAnimationFrame(function () {
     self.clearContainer(self.tileContainer);
-
-    if (displayMode) {
-	    grid.cells.forEach(function (column) {
-	      column.forEach(function (cell) {
-	        if (cell) {
-	          self.addTile(cell);
-	        }
-	      });
-	    });
+    
+    if (!hideMode) {
+	    if (displayMode) {
+		    grid.cells.forEach(function (column) {
+		      column.forEach(function (cell) {
+		        if (cell) {
+		          self.addTile(cell);
+		        }
+		      });
+		    });
+	    }
+	    else {
+	    	metadata.tiles.forEach(function (tile) {
+	    		self.addTile(tile.tile);
+	    		self.addTile(tile.quantity, true);
+	    	});
+		}
     }
-    else {
-    	metadata.tiles.forEach(function (tile) {
-    		self.addTile(tile.tile);
-    		self.addTile(tile.quantity, true);
-    	});
-	}
     
 
     self.updateScore(metadata.score);

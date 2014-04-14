@@ -10,13 +10,6 @@ function StatisticsManager(previousState) {
 //		this.tilesArray = [];
 	}
 }
-
-function Stats(position, value){
-	var newPosition = position;
-	this.tile = new Tile(position, value);
-	newPosition.x +=1;
-	this.quantity = new Tile(newPosition, 1, true);
-}
 	
 StatisticsManager.prototype.addTile = function (tile) {
 	var ii = Math.log(tile.value) / Math.LN2 - 1; 
@@ -82,13 +75,11 @@ StatisticsManager.prototype.fromState = function (state) {
 	};
 };
 
-//Object.prototype.size = function() {
-//	var size = 0;
-//	for (var key in this) {
-//		if (this.hasOwnProperty(key)) {
-//			size++;
-//		}
-//	}
-//	return size; 
-//};
-//	
+
+
+function Stats(position, value) {
+	var newPosition = position;
+	this.tile = new Tile(position, value);
+	newPosition.x +=1;
+	this.quantity = new Tile(newPosition, 1, true);
+}

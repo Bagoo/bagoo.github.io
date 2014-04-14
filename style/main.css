@@ -145,7 +145,7 @@ hr {
     opacity: 1; } }
 
 .game-container {
-  margin-top: 50px;
+/*   margin-top: 50px; */
   position: relative;
   padding: 15px;
   cursor: default;
@@ -808,13 +808,19 @@ hr {
   -webkit-animation-fill-mode: both;
   -moz-animation-fill-mode: both; }
 
+.above-game {
+  height: 80px; }
+
+.above-game-2 {
+  height: 50px; }
+
 .game-intro {
   margin-bottom: 0; }
 
 .game-explanation {
   margin-top: 50px; }
   
-.auto-move-button, .stop-auto-move-button, .switch-display-mode-button {
+.auto-move-button, .stop-auto-move-button, .switch-display-mode-button, .show-animation-button {
   display: inline-block;
   background: #8f7a66;
   border-radius: 3px;
@@ -826,16 +832,21 @@ hr {
   cursor: pointer;
   display: block;
   text-align: center;
-  float: left; }
+  float: left; 
+  min-width: 60px; }
   
 .stop-auto-move-button {
-  margin-left: 20px;
+  margin-left: 15px;
   float: left; }
   
 .switch-display-mode-button {
-  margin-left: 40px;
+/*   margin-left: 30px; */
   float: left; }
 
+.show-animation-button {
+  margin-left: 15px;
+  float: left; }
+  
 .restart-button {
   display: inline-block;
   background: #8f7a66;

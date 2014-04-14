@@ -70,7 +70,7 @@ KeyboardInputManager.prototype.listen = function () {
       self.restart.call(self, event);
     }
     // TAB key switches display mode
-    else if (!modifiers && event.which === 9) {
+    else if (!modifiers && event.which === 107) {
     	switchDisplayMode();
     } 
   });
@@ -82,7 +82,8 @@ KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".auto-move-button", startAutoMove);
   this.bindButtonPress(".stop-auto-move-button", stopAutoMove);
   this.bindButtonPress(".switch-display-mode-button", switchDisplayMode);
-
+  this.bindButtonPress(".show-animation-button", switchHideMode);
+  
   // Respond to swipe events
   var touchStartClientX, touchStartClientY;
   var gameContainer = document.getElementsByClassName("game-container")[0];

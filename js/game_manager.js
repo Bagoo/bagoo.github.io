@@ -61,6 +61,7 @@ GameManager.prototype.setup = function () {
     this.keepPlaying  = false;
     this.statsManager = new StatisticsManager();
     auto_move_flag    = false;
+	hideMode 		  = false;
 
     // Add the initial tiles
     this.addStartTiles();
