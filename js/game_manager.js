@@ -51,7 +51,7 @@ GameManager.prototype.setup = function () {
     this.score        = previousState.score;
     this.over         = previousState.over;
     this.won          = previousState.won;
-    this.keepPlaying  = previousState.keepPlaying;
+    this.keepPlaying  = previousState.keepPlaying;    
     this.statsManager = new StatisticsManager(previousState.statsManager); //reload Stats
   } else {
     this.grid         = new Grid(this.size);
