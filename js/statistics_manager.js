@@ -1,7 +1,8 @@
 function StatisticsManager(previousState) {
 	if (previousState) {
-		this.maxTile = this.fromState(previousState).maxTile;
-		this.tiles = this.fromState(previousState).tiles;
+		var previosStats = this.fromState(previousState); 
+		this.maxTile = previosStats.maxTile;
+		this.tiles = previosStats.tiles;
 	}
 	else {
 		this.maxTile = 0;
@@ -69,8 +70,9 @@ StatisticsManager.prototype.serialize = function () {
 
 StatisticsManager.prototype.fromState = function (state) {
 	var tiles = [];
-	
+	alert(state.tiles.toString());
 	for(var ii = 0; ii < state.tiles.length; ii++) {
+//		alert("position = "+state.tiles[ii].position.toString());
 		tiles[ii] = new Stats(state.tiles[ii].position, state.tiles[ii].value, state.tiles[ii].quantity);
 	}
 	
