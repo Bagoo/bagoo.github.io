@@ -1,34 +1,23 @@
-//<div class="grid-row">
-//<div class="grid-cell"></div>
-//<div class="grid-cell"></div>
-//<div class="grid-cell"></div>
-//<div class="grid-cell"></div>
-//<div class="grid-cell"></div>
-//<div class="grid-cell"></div>
-//<div class="grid-cell"></div>
-//<div class="grid-cell"></div>
-//</div>
 var tilePositions = [];
 
-function drawGrid() {
-//  var wrapper   = document.createElement("div");
-//  var inner     = document.createElement("div");
+function drawGrid(size) {
 	var wrapper;
 	var inner; 
 	
-	var precision = 0.5;
-	var containerSizePx = 621;
+	var gameSize 		 = size ? size : gameSizeDefault;
+	var precision 		 = 0.5;
+	var containerSizePx  = 621;
 	var marginSizeFactor = 0.15; //marginSize % respect to cell size
-	var fontSizeFactor = 0.5; //fontSize % respect to cell size
+	var fontSizeFactor	 = 0.5; //fontSize % respect to cell size
 	
-	var rowHeight;
-	var rowSpacing;
-	var cellSize;
-	var fontSize;
-	var marginCellSize;
-	var gridPadding;
+	var rowHeight		 = 0;
+	var rowSpacing		 = 0;
+	var cellSize		 = 0;
+	var fontSize		 = 0;
+	var marginCellSize	 = 0;
+	var gridPadding		 = 0;
 	
-	var remainder = 1;
+	var remainder 		 = 1; //init default > 0 to enable 1st process
 	
 	while (remainder > 0) {
 		if (!rowHeight) {
@@ -45,11 +34,7 @@ function drawGrid() {
 		remainder = (rowHeight*gameSize + gridPadding*2) - containerSizePx;
 	}
 
-//	var styleGridRow  = "height: "+cellSize+"px; margin-bottom: "+marginSize+"px; padding: "+gridPadding+"px;";
-//	var styleGridRow  = "height: "+cellSize+"px; padding: "+gridPadding+"px;";
 	var styleGridRow  = "height: "+rowHeight+"px;";
-//	var styleGridCell = "width: "+cellSize+"px; height: "+cellSize+"px; margin-right: "+marginSize+
-//						"px; float: left; border-radius: 3px; background: rgba(238, 228, 218, 0.35);";
 	var styleGridCell = "width: "+cellSize+"px; height: "+cellSize+"px; margin: "+marginCellSize+
 						"px; float: left; border-radius: 3px; background: rgba(238, 228, 218, 0.35);";
 	var styleTile;
@@ -66,7 +51,6 @@ function drawGrid() {
 			inner = document.createElement("div");
 			inner.setAttribute("style", styleGridCell);
 			wrapper.appendChild(inner);
-//			if (ii==1 && kk==0) alert("position: absolute; left: "+ rowHeight*ii +"px; \ntop: "+ rowHeight*kk +"px; ");
 			tileXpx = gridPadding + marginCellSize + rowHeight*ii;
 			tileYpx = gridPadding + marginCellSize + rowHeight*kk;
 			styleTile = "width: "+cellSize+"px; height: "+cellSize+"px; line-height: "+rowHeight+"px; "+
@@ -76,8 +60,6 @@ function drawGrid() {
 		}
 		document.querySelector(".grid-container").appendChild(wrapper);
 	}
-
-	// Put the tile on the board
 };
 
 function clearGrid() {

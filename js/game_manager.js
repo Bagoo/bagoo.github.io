@@ -3,6 +3,8 @@ function GameManager(size, InputManager, Actuator, StorageManager, StatisticsMan
   this.inputManager   = new InputManager;
   this.storageManager = new StorageManager;
 //  this.statsManager   = new StatisticsManager;
+  
+  this.gameWonTile;
 
   this.actuator       = new Actuator;
 
@@ -19,9 +21,8 @@ function GameManager(size, InputManager, Actuator, StorageManager, StatisticsMan
 GameManager.prototype.restart = function () {
   var newSize = document.getElementById("new-grid-size-inpt").value;
   if (newSize) {
-	  gameSize = newSize * 1;
+	  this.size = newSize * 1;
   }
-  this.size = gameSize;
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
 
@@ -46,13 +47,11 @@ GameManager.prototype.isGameTerminated = function () {
 // Set up the game
 GameManager.prototype.setup = function () {
   var previousState = this.storageManager.getGameState();
-//  var previousState;
-
-
+  
   // Reload the game from a previous game if present
   if (previousState) {
-    gameSize		  = previousState.grid.size;
-    drawGrid();
+    this.size		  = previousState.grid.size;
+    drawGrid(this.size);
     this.grid         = new Grid(previousState.grid.size,
                                  previousState.grid.cells); // Reload grid
     this.score        = previousState.score;
@@ -63,7 +62,7 @@ GameManager.prototype.setup = function () {
   } 
   else {
 	clearGrid();
-	drawGrid();
+	drawGrid(this.size);
     this.grid         = new Grid(this.size);
     this.score        = 0;
     this.over         = false;
@@ -76,9 +75,16 @@ GameManager.prototype.setup = function () {
     // Add the initial tiles
     this.addStartTiles();
   }
+  
+  this.updateGamWonTile();
 
   // Update the actuator
   this.actuate();
+};
+
+//Updates the won tile
+GameManager.prototype.updateGamWonTile = function () {
+	this.gameWonTile = this.size * (this.size + 1) / 2 + 1;
 };
 
 // Set up the initial tiles to start the game with
@@ -199,7 +205,8 @@ GameManager.prototype.move = function (direction) {
           self.statsManager.mergeTiles(tile);
 
           // The mighty 9223372036854780000 tile
-          if (merged.value === 9223372036854780000) self.won = true;
+//          if (merged.value === 9223372036854780000) self.won = true;
+          if (merged.value === this.gameWonTile) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }

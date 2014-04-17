@@ -5,12 +5,12 @@ var displayMode = true;
 var hideMode = false;
 var moves = 0;
 var startTime = 0;
-var gameSize = 2;
+var gameSizeDefault = 4; //default
 const TIME_TEST = 10;
 
 // Wait till the browser is ready to render the game (avoids glitches)
 window.requestAnimationFrame(function () {
-  gameManager = new GameManager(gameSize, KeyboardInputManager, HTMLActuator, LocalStorageManager, StatisticsManager);
+  gameManager = new GameManager(gameSizeDefault, KeyboardInputManager, HTMLActuator, LocalStorageManager, StatisticsManager);
 });
 
 function startAutoMove(){
