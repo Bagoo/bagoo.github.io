@@ -71,13 +71,15 @@ HTMLActuator.prototype.addTile = function (tile, isStats) {
   var wrapper   = document.createElement("div");
   var inner     = document.createElement("div");
   var position  = tile.previousPosition || { x: tile.x, y: tile.y };
-  var positionClass = this.positionClass(position);
+//  var positionClass = this.positionClass(position);
+  var positionClass = tilePositions[position.x][position.y];
 
   // We can't use classlist because it somehow glitches when replacing classes
 //  var classes = ["tile", "tile-" + tile.value, positionClass];
   var classes;
   if (!isStats) {
-	  classes = ["tile", "tile-" + tile.value, positionClass];
+//	  classes = ["tile", "tile-" + tile.value, positionClass];
+	  classes = ["tile", "tile-" + tile.value];
   }
   else {
 	  classes = ["tile", "tile-stats", positionClass];	  
@@ -87,6 +89,7 @@ HTMLActuator.prototype.addTile = function (tile, isStats) {
   if (tile.value > 1073741824) classes.push("tile-" + 1073741824);
 
   this.applyClasses(wrapper, classes);
+  wrapper.setAttribute("style", positionClass); //update position
 
   inner.classList.add("tile-inner");
   if (!isStats) {
@@ -99,8 +102,9 @@ HTMLActuator.prototype.addTile = function (tile, isStats) {
   if (tile.previousPosition) {
     // Make sure that the tile gets rendered in the previous position first
     window.requestAnimationFrame(function () {
-      classes[2] = self.positionClass({ x: tile.x, y: tile.y });
-      self.applyClasses(wrapper, classes); // Update the position
+//      classes[2] = self.positionClass({ x: tile.x, y: tile.y });
+//      self.applyClasses(wrapper, classes); // Update the position
+	  wrapper.setAttribute("style", tilePositions[tile.x][tile.y]); //update position
     });
   } else if (tile.mergedFrom) {
     classes.push("tile-merged");

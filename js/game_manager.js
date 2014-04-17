@@ -17,6 +17,11 @@ function GameManager(size, InputManager, Actuator, StorageManager, StatisticsMan
 
 // Restart the game
 GameManager.prototype.restart = function () {
+  var newSize = document.getElementById("new-grid-size-inpt").value;
+  if (newSize) {
+	  gameSize = newSize * 1;
+  }
+  this.size = gameSize;
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
 
@@ -46,6 +51,8 @@ GameManager.prototype.setup = function () {
 
   // Reload the game from a previous game if present
   if (previousState) {
+    gameSize		  = previousState.grid.size;
+    drawGrid();
     this.grid         = new Grid(previousState.grid.size,
                                  previousState.grid.cells); // Reload grid
     this.score        = previousState.score;
@@ -53,7 +60,10 @@ GameManager.prototype.setup = function () {
     this.won          = previousState.won;
     this.keepPlaying  = previousState.keepPlaying;    
     this.statsManager = new StatisticsManager(previousState.statsManager); //reload Stats
-  } else {
+  } 
+  else {
+	clearGrid();
+	drawGrid();
     this.grid         = new Grid(this.size);
     this.score        = 0;
     this.over         = false;

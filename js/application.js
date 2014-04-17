@@ -5,11 +5,12 @@ var displayMode = true;
 var hideMode = false;
 var moves = 0;
 var startTime = 0;
+var gameSize = 2;
 const TIME_TEST = 10;
 
 // Wait till the browser is ready to render the game (avoids glitches)
 window.requestAnimationFrame(function () {
-  gameManager = new GameManager(8, KeyboardInputManager, HTMLActuator, LocalStorageManager, StatisticsManager);
+  gameManager = new GameManager(gameSize, KeyboardInputManager, HTMLActuator, LocalStorageManager, StatisticsManager);
 });
 
 function startAutoMove(){
@@ -26,20 +27,20 @@ function stopAutoMove(){
 
 //Move Random automatic tiles on the grid in the specified direction
 function autoMove() {	
-	if (auto_move_flag !== false) {
-		gameManager.move(Math.floor(Math.random()*4));
-		setTimeout("autoMove()", auto_move_wait);
-		moves++;
-	}
-//	var timeTotal = ((performance.now() - startTime)/1000);
-//	if (auto_move_flag !== false && timeTotal<TIME_TEST) {
+//	if (auto_move_flag !== false) {
 //		gameManager.move(Math.floor(Math.random()*4));
 //		setTimeout("autoMove()", auto_move_wait);
 //		moves++;
 //	}
-//	else {
-//		alert("Moves = "+moves+"\nTime = "+timeTotal+"\nMoves/s = "+(moves/timeTotal));
-//	}
+	var timeTotal = ((performance.now() - startTime)/1000);
+	if (auto_move_flag !== false && timeTotal<TIME_TEST) {
+		gameManager.move(Math.floor(Math.random()*4));
+		setTimeout("autoMove()", auto_move_wait);
+		moves++;
+	}
+	else {
+		alert("Moves = "+moves+"\nTime = "+timeTotal+"\nMoves/s = "+(moves/timeTotal));
+	}
 };
 
 function switchDisplayMode() {
