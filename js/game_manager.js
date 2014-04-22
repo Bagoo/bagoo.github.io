@@ -5,10 +5,12 @@ function GameManager(size, InputManager, Actuator, StorageManager, StatisticsMan
 //  this.statsManager   = new StatisticsManager;
   
   this.gameWonTile;
+  this.updateGamWonTile();
 
   this.actuator       = new Actuator;
 
   this.startTiles     = 2;
+  this.minTile        = 2;
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
@@ -51,6 +53,7 @@ GameManager.prototype.setup = function () {
   // Reload the game from a previous game if present
   if (previousState) {
     this.size		  = previousState.grid.size;
+    this.updateGamWonTile();
     drawGrid(this.size);
     this.grid         = new Grid(previousState.grid.size,
                                  previousState.grid.cells); // Reload grid
@@ -76,15 +79,19 @@ GameManager.prototype.setup = function () {
     this.addStartTiles();
   }
   
-  this.updateGamWonTile();
 
   // Update the actuator
   this.actuate();
 };
 
+//Calculates the won tile
+GameManager.calculateGamWonTile = function (size) {
+	return size * (size + 1) / 2 + 1;
+};
+
 //Updates the won tile
 GameManager.prototype.updateGamWonTile = function () {
-	this.gameWonTile = this.size * (this.size + 1) / 2 + 1;
+	this.gameWonTile = GameManager.calculateGamWonTile(this.size);
 };
 
 // Set up the initial tiles to start the game with
@@ -97,7 +104,7 @@ GameManager.prototype.addStartTiles = function () {
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
-    var value = Math.random() < 0.9 ? 2 : 4;
+    var value = Math.random() < 0.9 ? this.minTile : this.minTile*2;
     var tile = new Tile(this.grid.randomAvailableCell(), value);
 
     this.grid.insertTile(tile);

@@ -73,23 +73,27 @@ HTMLActuator.prototype.addTile = function (tile, isStats) {
   var position  = tile.previousPosition || { x: tile.x, y: tile.y };
 //  var positionClass = this.positionClass(position);
   var positionClass = tilePositions[position.x][position.y];
+  var styleFormat;
 
   // We can't use classlist because it somehow glitches when replacing classes
 //  var classes = ["tile", "tile-" + tile.value, positionClass];
   var classes;
   if (!isStats) {
 //	  classes = ["tile", "tile-" + tile.value, positionClass];
+//	  classes = ["tile", "tile-" + tile.value];
 	  classes = ["tile", "tile-" + tile.value];
+	  styleFormat = tileFontSize[Math.log(tile.value) / Math.LN2];
   }
   else {
-	  classes = ["tile", "tile-stats", positionClass];	  
+	  classes = ["tile", "tile-stats"];	  
+	  styleFormat = tileFontSize[0];
   }
 	  
 //  if (tile.value > 2048) classes.push("tile-super");
-  if (tile.value > 1073741824) classes.push("tile-" + 1073741824);
+//  if (tile.value > 1073741824) classes.push("tile-" + 1073741824);
 
   this.applyClasses(wrapper, classes);
-  wrapper.setAttribute("style", positionClass); //update position
+  wrapper.setAttribute("style", positionClass+styleFormat); //update position
 
   inner.classList.add("tile-inner");
   if (!isStats) {
@@ -104,7 +108,7 @@ HTMLActuator.prototype.addTile = function (tile, isStats) {
     window.requestAnimationFrame(function () {
 //      classes[2] = self.positionClass({ x: tile.x, y: tile.y });
 //      self.applyClasses(wrapper, classes); // Update the position
-	  wrapper.setAttribute("style", tilePositions[tile.x][tile.y]); //update position
+	  wrapper.setAttribute("style", tilePositions[tile.x][tile.y]+styleFormat); //update position
     });
   } else if (tile.mergedFrom) {
     classes.push("tile-merged");
@@ -118,7 +122,6 @@ HTMLActuator.prototype.addTile = function (tile, isStats) {
     classes.push("tile-new");
     this.applyClasses(wrapper, classes);
   }
-
   // Add the inner part of the tile to the wrapper
   wrapper.appendChild(inner);
 

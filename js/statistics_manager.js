@@ -70,7 +70,6 @@ StatisticsManager.prototype.serialize = function () {
 
 StatisticsManager.prototype.fromState = function (state) {
 	var tiles = [];
-	alert(state.tiles.toString());
 	for(var ii = 0; ii < state.tiles.length; ii++) {
 //		alert("position = "+state.tiles[ii].position.toString());
 		tiles[ii] = new Stats(state.tiles[ii].position, state.tiles[ii].value, state.tiles[ii].quantity);

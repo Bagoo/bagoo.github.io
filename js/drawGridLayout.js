@@ -1,4 +1,5 @@
 var tilePositions = [];
+var tileFontSize = [];
 
 function drawGrid(size) {
 	var wrapper;
@@ -38,8 +39,27 @@ function drawGrid(size) {
 	var styleGridCell = "width: "+cellSize+"px; height: "+cellSize+"px; margin: "+marginCellSize+
 						"px; float: left; border-radius: 3px; background: rgba(238, 228, 218, 0.35);";
 	var styleTile;
+	var tileValueLength;
+	var fontSizeVariable;
+	var styleFontSize;
 	var tileXpx;
 	var tileYpx;
+	
+	for (var ii=0; ii < Math.pow(size, 2) + 1; ii++) {
+		tileValueLength = Math.ceil(Math.log(Math.pow(2,ii))/Math.LN10);
+
+		if (tileValueLength == 0) {
+			fontSizeVariable = Math.round(fontSize*0.8);
+		}
+		else if (tileValueLength < 4) {
+			fontSizeVariable = Math.round(fontSize);		
+		}
+		else {
+			fontSizeVariable = Math.round(fontSize*(3/tileValueLength));
+		}
+		styleFontSize = "font-size: "+Math.max(11,fontSizeVariable)+"px; ";
+		tileFontSize[ii] = styleFontSize;
+	}
 
 	document.querySelector(".grid-container").setAttribute("style", "padding:"+gridPadding+"px;");
 	for (var ii=0; ii < gameSize; ii++){
@@ -54,7 +74,7 @@ function drawGrid(size) {
 			tileXpx = gridPadding + marginCellSize + rowHeight*ii;
 			tileYpx = gridPadding + marginCellSize + rowHeight*kk;
 			styleTile = "width: "+cellSize+"px; height: "+cellSize+"px; line-height: "+rowHeight+"px; "+
-						"font-size: "+Math.round(fontSize)+"px; "+
+//						"font-size: "+Math.round(fontSize)+"px; "+
 						"position: absolute; left: "+ tileXpx +"px; top: "+ tileYpx +"px; ";
 			tilePositions[ii][kk] = styleTile;
 		}
