@@ -6,7 +6,7 @@ var hideMode = false;
 var moves = 0;
 var startTime = 0;
 var gameSizeDefault = 4; //default
-const TIME_TEST = 10;
+const TIME_TEST = 0;
 
 // Wait till the browser is ready to render the game (avoids glitches)
 window.requestAnimationFrame(function () {
@@ -23,6 +23,7 @@ function startAutoMove(){
 function stopAutoMove(){
 	auto_move_flag = false;
 	hideMode = false;
+	gameManager.actuate();
 };
 
 //Move Random automatic tiles on the grid in the specified direction
@@ -33,7 +34,7 @@ function autoMove() {
 		moves++;
 	}
 //	var timeTotal = ((performance.now() - startTime)/1000);
-//	if (auto_move_flag !== false && timeTotal<TIME_TEST) {
+//	if (auto_move_flag !== false && (timeTotal<TIME_TEST || TIME_TEST==0)) {
 //		gameManager.move(Math.floor(Math.random()*4));
 //		setTimeout("autoMove()", auto_move_wait);
 //		moves++;
